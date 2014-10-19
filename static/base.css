@@ -13,7 +13,7 @@ a {
 	width: 100%;
 }
 
-.next {
+.next, .back {
 	background-color: transparent;
 	border: none;
 	position: relative;

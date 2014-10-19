@@ -8,6 +8,7 @@ class Recommendation(db.Model):
     category = db.StringProperty()
     yelp_url = db.StringProperty()
     image_url = db.StringProperty()
+    comment = db.TextProperty()
 
 class User(db.Model):
     name = db.StringProperty(required=True)
