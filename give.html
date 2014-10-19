@@ -96,7 +96,7 @@
               data: "{'id':'" + ui.item.value + "'}", 
               success: function (data) {
               		if (data.image_url) {
-              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.image_url + ' />';
+              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.rating_img_url + ' /><br>' + '<img id="theImg" src=' + data.image_url + ' />';
               			categories = [];
               			for(var index in data.categories) {
               				categories.push(data.categories[index][0]);
