@@ -20,6 +20,11 @@
 			margin: 5%;
 		}
 
+		#next {
+			background-color: transparent;
+			border: none;
+		}
+
 		#business {
 			border: 0px;
 		}
@@ -54,6 +59,7 @@
 			<button type="button" class="btn btn-default btn-sm">
 			  <span class="glyphicon glyphicon-search"></span> 
 			  <input type="text" name="business" placeholder="Search Business" id="business">
+			  <span class="glyphicon glyphicon-map-marker">
 			</button><br>
 					<div class="row">
 					  <div class="col-xs-2"><img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px"></div>
@@ -67,20 +73,28 @@
 
 			<input type="text" name="comment" placeholder="Comment"> <br>
 			
+			<span class="glyphicon glyphicon-camera"></span>  
+			
 		</div>
 		<div id="friend-page">
-			<input id="friends" type="text" name="friends" placeholder="Find Friends"><br>
+			<button type="button" class="btn btn-default btn-sm">
+			  <span class="glyphicon glyphicon-search"></span> 
+			  <input type="text" name="friends" placeholder="Search Friends" id="friends"> 
 			<button type="submit"> Send </button>
 		</div>
 	</form>
 	<div class="footer"> 
-		<button type="button" name="next" id="next"> Next </button> <br>
+		<button type="button" name="next" id="next">
+			<span class="glyphicon glyphicon-chevron-right"></span> 
+		</button> <br>
 	</div>
 </body>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script>
+	$("#friend-page").hide()
+
 	$("#business").autocomplete({
       source: function (request, response) { 
                     $.ajax({ 
@@ -127,11 +141,5 @@
 		$("#friend-page").show()
 		$("#comment-page").hide()
 	})
-
-	function main() {
-		$("#friend-page").hide()
-	}
-
-	$(document).ready(main)
 </script>
 </html>
