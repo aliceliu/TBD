@@ -6,6 +6,8 @@
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
+  <a href="/find">All</a>
+  <a href="/find?status=unread">Unread</a>
   {% for recommendation in recommendations %}
     <div>
       From - {{recommendation.from_user_name}}: {{recommendation.business_name}}

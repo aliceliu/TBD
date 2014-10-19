@@ -81,7 +81,10 @@ class GiveHandler(webapp2.RequestHandler):
 class FindHandler(webapp2.RequestHandler):
     def get(self):
         template_values = {}
-        template_values['recommendations'] = Recommendation.gql("WHERE to_user_name = :1", CURRENT_USER)
+        if self.request.get('status'):
+          template_values['recommendations'] = Recommendation.gql("WHERE to_user_name = :1 AND status = :2", CURRENT_USER, self.request.get('status'))
+        else:
+          template_values['recommendations'] = Recommendation.gql("WHERE to_user_name = :1", CURRENT_USER)
         template = jinja_environment.get_template("find.html")
         self.response.out.write(template.render(template_values))
 
@@ -108,8 +111,8 @@ class ResetAndSeedHandler(webapp2.RequestHandler):
         Friendship(from_user_name='Alice Liu', to_user_name='Nicole Won').put()
         Friendship(from_user_name='Alice Liu', to_user_name='Gavin Chu').put()
 
-        Recommendation(from_user_name='Kevin Casey', to_user_name='Alice Liu', business_name="McDonald").put()
-        Recommendation(from_user_name='Gavin Chu', to_user_name='Alice Liu', business_name="Gather").put()
+        Recommendation(from_user_name='Kevin Casey', to_user_name='Alice Liu', business_name="McDonald", status="unread").put()
+        Recommendation(from_user_name='Gavin Chu', to_user_name='Alice Liu', business_name="Gather", status="read").put()
 
         self.response.out.write('success')
 

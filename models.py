@@ -4,6 +4,7 @@ class Recommendation(db.Model):
     from_user_name = db.StringProperty(required=True)
     to_user_name = db.StringProperty(required=True)
     business_name = db.StringProperty()
+    status = db.StringProperty()
 
 class User(db.Model):
     name = db.StringProperty(required=True)
