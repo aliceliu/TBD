@@ -46,18 +46,16 @@
 			  <input type="text" name="business" placeholder="Search Business" id="business" class="search">
 			  <span class="glyphicon glyphicon-map-marker">
 			</button><br>
-
-			<div class="row">
-				<div class="col-xs-2">
-					<img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px">
-				</div>
-			  	
-			  	<b>Alice Liu</b><br>
-					Level: Magic Beans
-				
-			</div>
-
+			<div id="categories"></div>
 			<div id="picture"></div>
+					<div class="row">
+					  <div class="col-xs-2"><img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px"></div>
+					  <div class="col-md-8">
+					  	<b>Alice Liu</b><br>
+							Level: Magic Beans
+						</div>
+					</div>
+
 
 			<textarea name="comment" placeholder="Comment"> </textarea><br>
 			
@@ -98,7 +96,10 @@
 		</div>
 	</form>
 	<div class="footer"> 
-		<button type="button" name="next" class="next" id="next">
+		<button type="button" name="back" class="back">
+			<span class="glyphicon glyphicon-chevron-left"></span> 
+		</button>
+		<button type="button" name="next" class="next">
 			<span class="glyphicon glyphicon-chevron-right"></span> 
 		</button> <br>
 	</div>
@@ -142,7 +143,12 @@
               data: "{'id':'" + ui.item.value + "'}", 
               success: function (data) {
               		if (data.image_url) {
-              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.image_url + ' />';
+              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.rating_img_url + ' /><br>' + '<img id="theImg" src=' + data.image_url + ' />';
+              			categories = [];
+              			for(var index in data.categories) {
+              				categories.push(data.categories[index][0]);
+              			}
+              			$('#categories')[0].innerHTML = categories.join(', ');
               		}
               }
           	});
@@ -155,10 +161,21 @@
       source: {{friends}}
     });
 
-	$("#next").click(function() {
-
+	var status = 0;
+	$(".next").click(function() {
+		status = 1;
 		$("#friend-page").show()
 		$("#comment-page").hide()
+	})
+
+	$(".back").click(function() {
+		if (status == 0) {
+			history.go(-1);
+			return true;
+		}
+		status = 0;
+		$("#friend-page").hide()
+		$("#comment-page").show()
 	})
 </script>
 </html>
