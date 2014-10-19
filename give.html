@@ -7,7 +7,7 @@
 <body>
 	<form>
 		<div id="comment-page">
-			<input type="text" name="business" placeholder="Business Name"><br>
+			<input type="text" name="business" placeholder="Business Name" id="business"><br>
 			<input type="text" name="comment" placeholder="Comment"> <br>
 			<button type="button" name="next" id="next"> Next </button> <br>
 		</div>
@@ -18,7 +18,28 @@
 	</form>
 </body>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script>
+	$("#business").autocomplete({
+      source: function (request, response) { 
+                    $.ajax({ 
+                        type: "POST", 
+                        contentType: "application/json; charset=utf-8", 
+                        url: "/autocomplete", 
+                        dataType: "json", 
+                        data: "{'value':'" + request.term + "'}", 
+                        success: function (data) { 
+                                response($.map(data.d, function (item) { 
+                                    return { 
+                                        label: item, 
+                                        value: item
+                                    } 
+                                }))
+                        } 
+                    }); 
+                }
+    });
 
 	$("#next").click(function() {
 
