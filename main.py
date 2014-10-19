@@ -73,42 +73,42 @@ class FindHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template("find.html")
         self.response.out.write(template.render(template_values))
 
-class AutocompleteHandler(webapp2.RequestHandler):
-    def post(self):
-        url = 'https://api.locu.com/v2/venue/search'
-        form_fields = {
-          "api_key" : "f165c0e560d0700288c2f70cf6b26e0c2de0348f",
-          "fields" : [ "name", "location", "contact", "categories" ],
-          "venue_queries" : [
-            {
-              "location" : {
-                "geo" : {
-                  "$in_lat_lng_radius" : [40.693134, -119.882813, 99999]
-                }
-              }
-            }
-          ]
-        }
+    #class AutocompleteHandler(webapp2.RequestHandler):
+    # def post(self):
+    #     url = 'https://api.locu.com/v2/venue/search'
+    #     form_fields = {
+    #       "api_key" : "f165c0e560d0700288c2f70cf6b26e0c2de0348f",
+    #       "fields" : [ "name", "location", "contact", "categories" ],
+    #       "venue_queries" : [
+    #         {
+    #           "location" : {
+    #             "geo" : {
+    #               "$in_lat_lng_radius" : [40.693134, -119.882813, 99999]
+    #             }
+    #           }
+    #         }
+    #       ]
+    #     }
 
-        form_data = json.dumps(form_fields)
-        json_result = urlfetch.fetch(url=url,
-            payload=form_data,
-            method=urlfetch.POST,
-            headers={'Content-Type': 'application/x-www-form-urlencoded'})
+    #     form_data = json.dumps(form_fields)
+    #     json_result = urlfetch.fetch(url=url,
+    #         payload=form_data,
+    #         method=urlfetch.POST,
+    #         headers={'Content-Type': 'application/x-www-form-urlencoded'})
 
-        result = json.loads(json_result.content)
-        venue_names = []
-        for venue in result['venues']:
-          venue_names.append(venue['name'].encode('ascii','ignore'))
+    #     result = json.loads(json_result.content)
+    #     venue_names = []
+    #     for venue in result['venues']:
+    #       venue_names.append(venue['name'].encode('ascii','ignore'))
 
-        response = {
-          'd': venue_names,
-        }
-        self.response.out.write(json.dumps(response))
+    #     response = {
+    #       'd': venue_names,
+    #     }
+    #     self.response.out.write(json.dumps(response))
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/give', GiveHandler),
     ('/find', FindHandler),
-    ('/autocomplete', AutocompleteHandler),
+    #('/autocomplete', AutocompleteHandler),
 ], debug=True)

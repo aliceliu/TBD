@@ -22,23 +22,7 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script>
 	$("#business").autocomplete({
-      source: function (request, response) { 
-                    $.ajax({ 
-                        type: "POST", 
-                        contentType: "application/json; charset=utf-8", 
-                        url: "/autocomplete", 
-                        dataType: "json", 
-                        data: "{'value':'" + request.term + "'}", 
-                        success: function (data) { 
-                                response($.map(data.d, function (item) { 
-                                    return { 
-                                        label: item, 
-                                        value: item
-                                    } 
-                                }))
-                        } 
-                    }); 
-                }
+      source: {{venue_names}}
     });
 
 	$("#next").click(function() {
