@@ -20,6 +20,19 @@
 			margin: 5%;
 		}
 
+		textarea {
+			width: 100%;
+		}
+
+		input[type="checkbox"] {
+			text-align: right;
+		}
+
+		.expand {
+			width: 100%;
+			text-align: left;
+		}
+
     </style>
 </head>
 <body>
@@ -45,7 +58,7 @@
 					</div>
 
 
-			<input type="text" name="comment" placeholder="Comment"> <br>
+			<textarea name="comment" placeholder="Comment"> </textarea><br>
 			
 			<div class="image-upload">
 			    <label for="file-input">
@@ -57,9 +70,35 @@
 			
 		</div>
 		<div id="friend-page">
-			<button type="button" class="btn btn-default btn-sm">
+			<button type="button" class="btn btn-default btn-sm search">
 			  <span class="glyphicon glyphicon-search"></span> 
-			  <input type="text" name="friends" placeholder="Search Friends" id="friends"> 
+			  <input type="text" name="friends" placeholder="Search Friends" id="friends" ></button><br>
+
+			<b>Groups</b><br>
+			<button type="button" class="btn btn-default btn-sm expand">
+			  <span class="glyphicon glyphicon-chevron-up"></span> 
+			  Foodies <input type="checkbox" name="foodies" value="Foodies"><br>
+			</button><br>
+			
+			<button type="button" class="btn btn-default btn-sm expand">
+			  <span class="glyphicon glyphicon-chevron-up"></span> 
+			  Cafe Study Buddies <input type="checkbox" name="foodies" value="Foodies"><br>
+			</button><br>
+			
+			<button type="button" class="btn btn-default btn-sm expand">
+			  <span class="glyphicon glyphicon-chevron-up"></span> 
+			  Poor College Kidzz <input type="checkbox" name="foodies" value="Foodies"><br>
+
+			<div class="toggle expand">
+				Nicole Won <input type="checkbox" name="foodies" value="Foodies"><br>
+				Kevin Casey <input type="checkbox" name="foodies" value="Foodies"><br>
+			</div>
+			</button><br>
+
+			<b>Friends</b><br>
+			Nicole Won <input type="checkbox" name="foodies" value="Foodies"><br>
+			Kevin Casey <input type="checkbox" name="foodies" value="Foodies"><br>
+
 			<button type="submit"> Send </button>
 		</div>
 	</form>
@@ -93,6 +132,12 @@
 
 	$("#file-input").change(function(){
 	    readURL(this);
+	});
+
+	$(".toggle").hide();
+
+	$(".expand").click(function() {
+		$(".toggle").toggle();
 	});
 
 	$("#business").autocomplete({
