@@ -49,18 +49,25 @@
 			</button><br>
 			<div id="categories"></div>
 			<div id="picture"></div>
-			<div class="row">
-			  <div class="col-xs-2"><img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px"></div>
-			  <div class="col-md-8 profile">
-			  	<b>Alice Liu</b><br>
-					Level: Magic Beans
-			  </div>
-			</div>
 
+			<div id="custom_picture"><img id="custom_image" src="" style="width: 100px;"></div>
+					<div class="row">
+					  <div class="col-xs-2"><img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px"></div>
+					  <div class="col-md-8">
+					  	<b>Alice Liu</b><br>
+							Level: Magic Beans
+						</div>
+					</div>
 
 			<textarea name="comment" placeholder="Comment"> </textarea><br>
 			
-			<span class="glyphicon glyphicon-camera"></span>  
+			<div class="image-upload">
+			    <label for="file-input">
+			        <span class="glyphicon glyphicon-camera"></span>
+			    </label>
+
+			    <input id="file-input" type="file"/>
+			</div>
 			
 		</div>
 		<div id="friend-page">
@@ -110,6 +117,24 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script>
 	$("#friend-page").hide();
+	$("#file-input").hide();
+	function readURL(input) {
+
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+
+	        reader.onload = function (e) {
+	            $('#custom_image').attr('src', e.target.result);
+	        }
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+
+	$("#file-input").change(function(){
+	    readURL(this);
+	});
+
 	$(".toggle").hide();
 
 	$(".expand").click(function() {
@@ -177,6 +202,6 @@
 		status = 0;
 		$("#friend-page").hide()
 		$("#comment-page").show()
-	})
+	});
 </script>
 </html>
