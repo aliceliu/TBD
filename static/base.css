@@ -1,4 +1,38 @@
 html {
 	height: 100%;
 	padding: 5%;
+	font-family: 'Oswald', sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+.search {
+	border: 0px;
+	width: 100%;
+}
+
+.next {
+	background-color: transparent;
+	border: none;
+	position: relative;
+}
+
+.header, .footer {
+	background-color: coral;
+	width: 100%;
+	padding: 5%;
+	color: white;
+}
+
+.header {
+	position: fixed;
+	text-align: center;
+	top: 0px;
+}
+
+.footer {
+	position: fixed;
+	bottom: 0px;
 }

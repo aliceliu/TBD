@@ -4,15 +4,66 @@
     <meta charset="UTF-8">
     <title>Cool Beans</title>
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="/static/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style>
+      html {
+          padding: 0px;
+      }
+
+      body {
+        padding: 0px;
+        margin: 0px;
+        margin-top: 17%;
+      }
+
+      a {
+        color: black;
+        margin-top: 5%;
+      }
+
+      a:hover {
+        text-decoration: none;
+        color: coral;
+      }
+
+      .recommendation {
+        margin-top: 2%;
+      }
+
+    </style>
 </head>
 <body>
-  <a href="/find">All</a>
-  <a href="/find?status=unread">Unread</a>
+  <div class="header">
+    Recommended for you
+  </div>
+
+  <button type="button" class="btn btn-default btn-sm search">
+        <span class="glyphicon glyphicon-search"></span> 
+        <input type="text" name="recomendations" placeholder="Search Recommendations" id="recommendations" class="search">
+      </button><br>
+
   {% for recommendation in recommendations %}
-    <div>
-      <img src="{{recommendation.image_url}}">
-      From - {{recommendation.from_user_name}}: <a href="/detail?id={{recommendation.key()}}">{{recommendation.business_name}}</a>
+    <div class="recommendation">
+      <a href="/detail?id={{recommendation.key()}}">
+        <div class="row">
+          <div class="col-xs-2">
+            <img src="{{recommendation.image_url}}" width="50px" height="50px">
+          </div>
+
+          <b>{{recommendation.business_name}}</b>
+          {{recommendation.category}} <br>
+          "{{recommendation.comment}}" <br>
+          - {{recommendation.from_user_name}}
+        </div>
+      </a>
+
     </div>
   {% endfor %}
+  <div class="footer"> 
+    <button type="button" name="next" class="next">
+      <span class="glyphicon glyphicon-chevron-right"></span> 
+    </button> <br>
+  </div>
 </body>
 </html>
