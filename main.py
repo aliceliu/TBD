@@ -25,8 +25,13 @@ import json
 
 from google.appengine.api import urlfetch
 
+from models import *
+
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
+
+MY_RECOMMENDATIONS = ["McDonald's", "Nicole Won", "Kevin Casey", "Gavin Chu"]
+CURRENT_USER = "Alice Liu"
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
@@ -64,51 +69,64 @@ class GiveHandler(webapp2.RequestHandler):
           venue_names.append(venue['name'].encode('ascii','ignore'))
 
         template_values['venue_names'] = venue_names
+
+        friends = []
+        for friend in Friendship.gql("WHERE from_user_name = :1", CURRENT_USER):
+          friends.append(friend.to_user_name.encode('ascii','ignore'))
+
+        template_values['friends'] = friends
         template = jinja_environment.get_template("give.html")
         self.response.out.write(template.render(template_values))
 
 class FindHandler(webapp2.RequestHandler):
     def get(self):
         template_values = {}
+        if self.request.get('status'):
+          template_values['recommendations'] = Recommendation.gql("WHERE to_user_name = :1 AND status = :2", CURRENT_USER, self.request.get('status'))
+        else:
+          template_values['recommendations'] = Recommendation.gql("WHERE to_user_name = :1", CURRENT_USER)
         template = jinja_environment.get_template("find.html")
         self.response.out.write(template.render(template_values))
 
-    #class AutocompleteHandler(webapp2.RequestHandler):
-    # def post(self):
-    #     url = 'https://api.locu.com/v2/venue/search'
-    #     form_fields = {
-    #       "api_key" : "f165c0e560d0700288c2f70cf6b26e0c2de0348f",
-    #       "fields" : [ "name", "location", "contact", "categories" ],
-    #       "venue_queries" : [
-    #         {
-    #           "location" : {
-    #             "geo" : {
-    #               "$in_lat_lng_radius" : [40.693134, -119.882813, 99999]
-    #             }
-    #           }
-    #         }
-    #       ]
-    #     }
+class DetailHandler(webapp2.RequestHandler):
+    def get(self):
+        template_values = {}
+        template_values['recommendation'] = Recommendation.get(self.request.get('id'))
+        template = jinja_environment.get_template("detail.html")
+        self.response.out.write(template.render(template_values))
 
-    #     form_data = json.dumps(form_fields)
-    #     json_result = urlfetch.fetch(url=url,
-    #         payload=form_data,
-    #         method=urlfetch.POST,
-    #         headers={'Content-Type': 'application/x-www-form-urlencoded'})
+class ResetAndSeedHandler(webapp2.RequestHandler):
+    def get(self):
+        query = Recommendation.all(keys_only=True)
+        entries = query.fetch(1000)
+        db.delete(entries)
 
-    #     result = json.loads(json_result.content)
-    #     venue_names = []
-    #     for venue in result['venues']:
-    #       venue_names.append(venue['name'].encode('ascii','ignore'))
+        query = User.all(keys_only=True)
+        entries = query.fetch(1000)
+        db.delete(entries)
 
-    #     response = {
-    #       'd': venue_names,
-    #     }
-    #     self.response.out.write(json.dumps(response))
+        query = Friendship.all(keys_only=True)
+        entries = query.fetch(1000)
+        db.delete(entries)
+
+        User(name='Kevin Casey').put()
+        User(name='Alice Liu').put()
+        User(name='Nicole Won').put()
+        User(name='Gavin Chu').put()
+
+        Friendship(from_user_name='Alice Liu', to_user_name='Kevin Casey').put()
+        Friendship(from_user_name='Alice Liu', to_user_name='Nicole Won').put()
+        Friendship(from_user_name='Alice Liu', to_user_name='Gavin Chu').put()
+
+        Recommendation(from_user_name='Kevin Casey', to_user_name='Alice Liu', business_name="McDonald's", status="unread", yelp_url="http://www.yelp.com/biz/mcdonalds-berkeley", category="Food, Fast Food", image_url='http://s3-media2.fl.yelpcdn.com/bphoto/cF9hqfc0ZPRw1rk52jsnQQ/l.jpg').put()
+        Recommendation(from_user_name='Gavin Chu', to_user_name='Alice Liu', business_name="Gather", status="read", yelp_url='http://www.yelp.com/biz/gather-berkeley', category="Food, Restaurant", image_url='http://s3-media3.fl.yelpcdn.com/bphoto/b2MQXzUpo65Xnr1_hN19RQ/l.jpg').put()
+
+        self.response.out.write('success')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/give', GiveHandler),
     ('/find', FindHandler),
-    #('/autocomplete', AutocompleteHandler),
+    ('/detail', DetailHandler),
+    ('/reset', ResetAndSeedHandler),
 ], debug=True)
