@@ -3,19 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <title>Cool Beans</title>
+    <link href="/static/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style>
+    	html {
+    		padding: 0px;
+		}
+
+		body {
+			padding: 0px;
+			margin: 0px;
+			margin-top: 20%;
+		}
+
+		form {
+			margin: 5%;
+		}
+
+		#business {
+			border: 0px;
+		}
+
+    	.header, .footer {
+    		background-color: coral;
+    		width: 100%;
+    		padding: 5%;
+    		
+    		color: white;
+    	}
+
+    	.header {
+    		position: fixed;
+    		text-align: center;
+    		top: 0px;
+    	}
+
+    	.footer {
+    		position: fixed;
+    		bottom: 0px;
+    	}
+
+    </style>
 </head>
 <body>
+	<div class="header">
+		Give Recommendation
+	</div>
 	<form>
 		<div id="comment-page">
-			<input type="text" name="business" placeholder="Business Name" id="business"><br>
+			<button type="button" class="btn btn-default btn-sm">
+			  <span class="glyphicon glyphicon-search"></span> 
+			  <input type="text" name="business" placeholder="Search Business" id="business">
+			</button><br>
+
+					<img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px">
+
+					<b>Alice Liu</b><br>
+					Level: Magic Beans
+
 			<input type="text" name="comment" placeholder="Comment"> <br>
-			<button type="button" name="next" id="next"> Next </button> <br>
+			
 		</div>
 		<div id="friend-page">
 			<input type="text" name="friends" placeholder="Find Friends"><br>
 			<button type="submit"> Send </button>
 		</div>
 	</form>
+	<div class="footer"> 
+		<button type="button" name="next" id="next"> Next </button> <br>
+	</div>
 </body>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
@@ -32,7 +88,6 @@
 	})
 
 	function main() {
-
 		$("#friend-page").hide()
 	}
 

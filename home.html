@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <title>Cool Beans</title>
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="/static/base.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<img src="/static/bean.png" id="bean" width="60px"></img>
+	<img src="/static/bean.png" id="bean" width="60px">
 	<h1> COOLBEANS </h1>
 	<div id="description"> Give recommendations to your friends, or find recommendations sent by friends.</div>
 	<div id="nav">
@@ -18,18 +19,7 @@
 </body>
 <style>
 	body {
-		background: linear-gradient(#2ecc71, #33cbcc); /* Standard syntax */	
-	}
-
-	html {
-		height: 100%;
-		padding: 5%;
-	}
-
-	h1, button a {
-		font-family: 'Oswald', sans-serif;
-		font-weight: 400;
-		color: white;
+		background-color: coral; /* Standard syntax */	
 	}
 
 	#description {
@@ -48,6 +38,9 @@
 		font-size: 400%;
 		margin-top: 0px;
 		margin-bottom: 7%;
+		font-family: 'Oswald', sans-serif;
+		font-weight: 400;
+		color: white;
 	}
 
 	ul {
@@ -61,7 +54,7 @@
     	background-color: white;
     	display: block;
     	text-decoration: none;
-    	color: #2ecc71;
+    	color: coral;
     	padding: 15%;
     	margin-top: 7%;
     }
