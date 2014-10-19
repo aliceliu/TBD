@@ -13,6 +13,15 @@ a {
 	width: 100%;
 }
 
+.glyphicon-map-marker {
+	position: relative;
+	right: 30px;
+}
+
+.image-upload {
+	text-align: center;
+}
+
 .next, .back {
 	background-color: transparent;
 	border: none;
@@ -24,12 +33,17 @@ a {
 	width: 100%;
 	padding: 5%;
 	color: white;
+	text-align: center;
 }
 
 .header {
 	position: fixed;
-	text-align: center;
 	top: 0px;
+}
+
+.footer button {
+	padding-right: 10%;
+	padding-left: 10%;
 }
 
 .footer {
