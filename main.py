@@ -88,6 +88,13 @@ class FindHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template("find.html")
         self.response.out.write(template.render(template_values))
 
+class DetailHandler(webapp2.RequestHandler):
+    def get(self):
+        template_values = {}
+        template_values['recommendation'] = Recommendation.get(self.request.get('id'))
+        template = jinja_environment.get_template("detail.html")
+        self.response.out.write(template.render(template_values))
+
 class ResetAndSeedHandler(webapp2.RequestHandler):
     def get(self):
         query = Recommendation.all(keys_only=True)
@@ -111,8 +118,8 @@ class ResetAndSeedHandler(webapp2.RequestHandler):
         Friendship(from_user_name='Alice Liu', to_user_name='Nicole Won').put()
         Friendship(from_user_name='Alice Liu', to_user_name='Gavin Chu').put()
 
-        Recommendation(from_user_name='Kevin Casey', to_user_name='Alice Liu', business_name="McDonald", status="unread").put()
-        Recommendation(from_user_name='Gavin Chu', to_user_name='Alice Liu', business_name="Gather", status="read").put()
+        Recommendation(from_user_name='Kevin Casey', to_user_name='Alice Liu', business_name="McDonald's", status="unread", yelp_url="http://www.yelp.com/biz/mcdonalds-berkeley", category="Food, Fast Food", image_url='http://s3-media2.fl.yelpcdn.com/bphoto/cF9hqfc0ZPRw1rk52jsnQQ/l.jpg').put()
+        Recommendation(from_user_name='Gavin Chu', to_user_name='Alice Liu', business_name="Gather", status="read", yelp_url='http://www.yelp.com/biz/gather-berkeley', category="Food, Restaurant", image_url='http://s3-media3.fl.yelpcdn.com/bphoto/b2MQXzUpo65Xnr1_hN19RQ/l.jpg').put()
 
         self.response.out.write('success')
 
@@ -120,5 +127,6 @@ app = webapp2.WSGIApplication([
     ('/', MainHandler),
     ('/give', GiveHandler),
     ('/find', FindHandler),
-    ('/reset', ResetAndSeedHandler)
+    ('/detail', DetailHandler),
+    ('/reset', ResetAndSeedHandler),
 ], debug=True)

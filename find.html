@@ -10,7 +10,8 @@
   <a href="/find?status=unread">Unread</a>
   {% for recommendation in recommendations %}
     <div>
-      From - {{recommendation.from_user_name}}: {{recommendation.business_name}}
+      <img src="{{recommendation.image_url}}">
+      From - {{recommendation.from_user_name}}: <a href="/detail?id={{recommendation.key()}}">{{recommendation.business_name}}</a>
     </div>
   {% endfor %}
 </body>

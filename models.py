@@ -5,6 +5,9 @@ class Recommendation(db.Model):
     to_user_name = db.StringProperty(required=True)
     business_name = db.StringProperty()
     status = db.StringProperty()
+    category = db.StringProperty()
+    yelp_url = db.StringProperty()
+    image_url = db.StringProperty()
 
 class User(db.Model):
     name = db.StringProperty(required=True)
