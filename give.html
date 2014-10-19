@@ -61,6 +61,7 @@
 			  <input type="text" name="business" placeholder="Search Business" id="business">
 			  <span class="glyphicon glyphicon-map-marker">
 			</button><br>
+			<div id="picture"></div>
 					<div class="row">
 					  <div class="col-xs-2"><img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px"></div>
 					  <div class="col-md-8">
@@ -69,7 +70,6 @@
 						</div>
 					</div>
 
-			<div id="picture"></div>
 
 			<input type="text" name="comment" placeholder="Comment"> <br>
 			
@@ -123,7 +123,7 @@
               data: "{'id':'" + ui.item.value + "'}", 
               success: function (data) {
               		if (data.image_url) {
-              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.image_url + ' />';
+              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.image_url + ' />' + data.categories;
               		}
               }
           	});
