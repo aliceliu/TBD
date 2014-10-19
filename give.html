@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cool Beans</title>
+</head>
+<body>
+	<form>
+		<div id="comment-page">
+			<input type="text" name="business" placeholder="Business Name"><br>
+			<input type="text" name="comment" placeholder="Comment"> <br>
+			<button type="button" name="next" id="next"> Next </button> <br>
+		</div>
+		<div id="friend-page">
+			<input type="text" name="friends" placeholder="Find Friends"><br>
+			<button type="submit"> Send </button>
+		</div>
+	</form>
+</body>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script>
+
+	$("#next").click(function() {
+
+		$("#friend-page").show()
+		$("#comment-page").hide()
+	})
+
+	function main() {
+
+		$("#friend-page").hide()
+	}
+
+	$(document).ready(main)
+</script>
+</html>
