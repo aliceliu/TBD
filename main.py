@@ -23,6 +23,26 @@ import urllib2
 
 import json
 
+import sys
+sys.path.insert(0, 'libs')
+
+import oauth2
+
+API_HOST = 'api.yelp.com'
+DEFAULT_TERM = 'dinner'
+DEFAULT_LOCATION = 'San Francisco, CA'
+SEARCH_LIMIT = 3
+SEARCH_PATH = '/v2/search/'
+BUSINESS_PATH = '/v2/business/'
+
+LOCATION = 'Berkeley'
+
+# OAuth credential placeholders that must be filled in by users.
+CONSUMER_KEY = 'VEaqAkY_fwQexWrMqSe-jw'
+CONSUMER_SECRET = '--C-Uu9Et6IK1S8RXrFxCEYFgZ4'
+TOKEN = '7H2qxt0nWDOHQdWAHK6AuFQVt_ZVHrbI'
+TOKEN_SECRET = 'wly6FbbcYD9IbnUp-LzBk9RJNtU'
+
 from google.appengine.api import urlfetch
 
 from models import *
@@ -33,6 +53,49 @@ jinja_environment = jinja2.Environment(
 MY_RECOMMENDATIONS = ["McDonald's", "Nicole Won", "Kevin Casey", "Gavin Chu"]
 CURRENT_USER = "Alice Liu"
 
+def make_yelp_request(host, path, url_params=None):
+    """Prepares OAuth authentication and sends the request to the API.
+
+    Args:
+        host (str): The domain host of the API.
+        path (str): The path of the API after the domain.
+        url_params (dict): An optional set of query parameters in the request.
+
+    Returns:
+        dict: The JSON response from the request.
+
+    Raises:
+        urllib2.HTTPError: An error occurs from the HTTP request.
+    """
+    url_params = url_params or {}
+    encoded_params = urllib.urlencode(url_params)
+
+    url = 'http://{0}{1}?{2}'.format(host, path, encoded_params)
+
+    consumer = oauth2.Consumer(CONSUMER_KEY, CONSUMER_SECRET)
+    oauth_request = oauth2.Request('GET', url, {})
+    oauth_request.update(
+        {
+            'oauth_nonce': oauth2.generate_nonce(),
+            'oauth_timestamp': oauth2.generate_timestamp(),
+            'oauth_token': TOKEN,
+            'oauth_consumer_key': CONSUMER_KEY
+        }
+    )
+    token = oauth2.Token(TOKEN, TOKEN_SECRET)
+    oauth_request.sign_request(oauth2.SignatureMethod_HMAC_SHA1(), consumer, token)
+    signed_url = oauth_request.to_url()
+
+    print 'Querying {0} ...'.format(url)
+
+    conn = urllib2.urlopen(signed_url, None)
+    try:
+        response = json.loads(conn.read())
+    finally:
+        conn.close()
+
+    return response
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template_values = {}
@@ -42,33 +105,6 @@ class MainHandler(webapp2.RequestHandler):
 class GiveHandler(webapp2.RequestHandler):
     def get(self):
         template_values = {}
-        url = 'https://api.locu.com/v2/venue/search'
-        form_fields = {
-          "api_key" : "f165c0e560d0700288c2f70cf6b26e0c2de0348f",
-          "fields" : [ "name", "location", "contact", "categories" ],
-          "venue_queries" : [
-            {
-              "location" : {
-                "geo" : {
-                  "$in_lat_lng_radius" : [40.693134, -119.882813, 99999]
-                }
-              }
-            }
-          ]
-        }
-
-        form_data = json.dumps(form_fields)
-        json_result = urlfetch.fetch(url=url,
-            payload=form_data,
-            method=urlfetch.POST,
-            headers={'Content-Type': 'application/x-www-form-urlencoded'})
-
-        result = json.loads(json_result.content)
-        venue_names = []
-        for venue in result['venues']:
-          venue_names.append(venue['name'].encode('ascii','ignore'))
-
-        template_values['venue_names'] = venue_names
 
         friends = []
         for friend in Friendship.gql("WHERE from_user_name = :1", CURRENT_USER):
@@ -94,6 +130,35 @@ class DetailHandler(webapp2.RequestHandler):
         template_values['recommendation'] = Recommendation.get(self.request.get('id'))
         template = jinja_environment.get_template("detail.html")
         self.response.out.write(template.render(template_values))
+
+class AutocompleteYelpHandler(webapp2.RequestHandler):
+    def post(self):
+        url_params = {
+            'term': eval(self.request.body)['q'],
+            'location': LOCATION,
+            'is_closed': False,
+            'limit': 10
+        }
+
+        yelp_results = make_yelp_request(API_HOST, SEARCH_PATH, url_params=url_params)
+
+        venue_names = []
+        for venue in yelp_results['businesses']:
+          venue_names.append({
+            'name': venue['name'].encode('ascii','ignore'),
+            'id': venue['id'].encode('ascii','ignore')
+          })
+
+        return self.response.out.write(json.dumps(venue_names))
+
+class AutocompleteYelpPictureHandler(webapp2.RequestHandler):
+    def post(self):
+        business_id = eval(self.request.body)['id']
+        business_path = BUSINESS_PATH + business_id
+
+        yelp_result = make_yelp_request(API_HOST, business_path)
+
+        return self.response.out.write(json.dumps(yelp_result))
 
 class ResetAndSeedHandler(webapp2.RequestHandler):
     def get(self):
@@ -128,5 +193,7 @@ app = webapp2.WSGIApplication([
     ('/give', GiveHandler),
     ('/find', FindHandler),
     ('/detail', DetailHandler),
+    ('/autocomplete_yelp', AutocompleteYelpHandler),
+    ('/autocomplete_yelp_picture', AutocompleteYelpPictureHandler),
     ('/reset', ResetAndSeedHandler),
 ], debug=True)

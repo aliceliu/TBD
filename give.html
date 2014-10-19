@@ -44,6 +44,8 @@
 				
 			</div>
 
+			<div id="picture"></div>
+
 			<input type="text" name="comment" placeholder="Comment"> <br>
 			
 			<span class="glyphicon glyphicon-camera"></span>  
@@ -69,7 +71,40 @@
 	$("#friend-page").hide()
 
 	$("#business").autocomplete({
-      source: {{venue_names}}
+      source: function (request, response) { 
+                    $.ajax({ 
+                        type: "POST", 
+                        contentType: "application/json; charset=utf-8", 
+                        url: "/autocomplete_yelp", 
+                        dataType: "json", 
+                        data: "{'q':'" + request.term + "'}", 
+                        success: function (data) { 
+                                response($.map(data, function (item) { 
+                                    return { 
+                                        label: item.name, 
+                                        value: item.id 
+                                    } 
+                                })) 
+                        } 
+                    }); 
+                },
+      select: function(event, ui) {
+        if(ui.item) {
+          $.ajax({ 
+              type: "POST", 
+              contentType: "application/json; charset=utf-8", 
+              url: "/autocomplete_yelp_picture", 
+              dataType: "json", 
+              data: "{'id':'" + ui.item.value + "'}", 
+              success: function (data) {
+              		if (data.image_url) {
+              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.image_url + ' />';
+              		}
+              }
+          	});
+          ui.item.value = ui.item.label;
+        }
+    	}
     });
 
 	$("#friends").autocomplete({
