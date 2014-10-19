@@ -20,34 +20,6 @@
 			margin: 5%;
 		}
 
-		#next {
-			background-color: transparent;
-			border: none;
-		}
-
-		#business {
-			border: 0px;
-		}
-
-    	.header, .footer {
-    		background-color: coral;
-    		width: 100%;
-    		padding: 5%;
-    		
-    		color: white;
-    	}
-
-    	.header {
-    		position: fixed;
-    		text-align: center;
-    		top: 0px;
-    	}
-
-    	.footer {
-    		position: fixed;
-    		bottom: 0px;
-    	}
-
     </style>
 </head>
 <body>
@@ -56,11 +28,12 @@
 	</div>
 	<form>
 		<div id="comment-page">
-			<button type="button" class="btn btn-default btn-sm">
+			<button type="button" class="btn btn-default btn-sm search">
 			  <span class="glyphicon glyphicon-search"></span> 
-			  <input type="text" name="business" placeholder="Search Business" id="business">
+			  <input type="text" name="business" placeholder="Search Business" id="business" class="search">
 			  <span class="glyphicon glyphicon-map-marker">
 			</button><br>
+			<div id="categories"></div>
 			<div id="picture"></div>
 					<div class="row">
 					  <div class="col-xs-2"><img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px"></div>
@@ -84,7 +57,7 @@
 		</div>
 	</form>
 	<div class="footer"> 
-		<button type="button" name="next" id="next">
+		<button type="button" name="next" class="next">
 			<span class="glyphicon glyphicon-chevron-right"></span> 
 		</button> <br>
 	</div>
@@ -123,7 +96,12 @@
               data: "{'id':'" + ui.item.value + "'}", 
               success: function (data) {
               		if (data.image_url) {
-              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.image_url + ' />' + data.categories;
+              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.image_url + ' />';
+              			categories = [];
+              			for(var index in data.categories) {
+              				categories.push(data.categories[index][0]);
+              			}
+              			$('#categories')[0].innerHTML = categories.join(', ');
               		}
               }
           	});
