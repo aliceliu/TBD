@@ -74,7 +74,6 @@ class GiveHandler(webapp2.RequestHandler):
         for friend in Friendship.gql("WHERE from_user_name = :1", CURRENT_USER):
           friends.append(friend.to_user_name.encode('ascii','ignore'))
 
-        print friends
         template_values['friends'] = friends
         template = jinja_environment.get_template("give.html")
         self.response.out.write(template.render(template_values))
@@ -82,7 +81,7 @@ class GiveHandler(webapp2.RequestHandler):
 class FindHandler(webapp2.RequestHandler):
     def get(self):
         template_values = {}
-        template_values['recommendations'] = MY_RECOMMENDATIONS
+        template_values['recommendations'] = Recommendation.gql("WHERE to_user_name = :1", CURRENT_USER)
         template = jinja_environment.get_template("find.html")
         self.response.out.write(template.render(template_values))
 
@@ -96,6 +95,10 @@ class ResetAndSeedHandler(webapp2.RequestHandler):
         entries = query.fetch(1000)
         db.delete(entries)
 
+        query = Friendship.all(keys_only=True)
+        entries = query.fetch(1000)
+        db.delete(entries)
+
         User(name='Kevin Casey').put()
         User(name='Alice Liu').put()
         User(name='Nicole Won').put()
@@ -104,6 +107,9 @@ class ResetAndSeedHandler(webapp2.RequestHandler):
         Friendship(from_user_name='Alice Liu', to_user_name='Kevin Casey').put()
         Friendship(from_user_name='Alice Liu', to_user_name='Nicole Won').put()
         Friendship(from_user_name='Alice Liu', to_user_name='Gavin Chu').put()
+
+        Recommendation(from_user_name='Kevin Casey', to_user_name='Alice Liu', business_name="McDonald").put()
+        Recommendation(from_user_name='Gavin Chu', to_user_name='Alice Liu', business_name="Gather").put()
 
         self.response.out.write('success')
 

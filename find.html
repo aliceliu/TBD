@@ -6,69 +6,10 @@
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <img src="/static/bean.png" id="bean" width="60px"></img>
-  <h1> COOLBEANS </h1>
-  <div id="description"> Give recommendations to your friends, or find recommendations sent by friends.</div>
-  <div id="nav">
-    <ul>
-      <li><a href="/give"> GIVE BEANS </a></li>
-      <li><a href="/find"> COLLECTED BEANS </a></li>
-    </ul>
-  </div>
+  {% for recommendation in recommendations %}
+    <div>
+      From - {{recommendation.from_user_name}}: {{recommendation.business_name}}
+    </div>
+  {% endfor %}
 </body>
-<style>
-  body {
-    background: linear-gradient(#2ecc71, #33cbcc); /* Standard syntax */  
-  }
-
-  html {
-    height: 100%;
-    padding: 5%;
-  }
-
-  h1, button a {
-    font-family: 'Oswald', sans-serif;
-    font-weight: 400;
-    color: white;
-  }
-
-  #description {
-    font-family: 'Open Sans', sans-serif;
-    color: white;
-    font-size: 80%;
-  }
-
-  #bean {
-    position: relative;
-    top: 25px;
-    right: -10px;
-  }
-
-  h1 {
-    font-size: 400%;
-    margin-top: 0px;
-    margin-bottom: 7%;
-  }
-
-  ul {
-        list-style-type: none;
-        margin: 0px;
-        padding: 0px;
-    }
-
-    li a {
-      font-family: 'Open Sans', sans-serif;
-      background-color: white;
-      display: block;
-      text-decoration: none;
-      color: #2ecc71;
-      padding: 15%;
-      margin-top: 7%;
-    }
-
-    html {
-      text-align: center;
-    }
-
-    </style>
 </html>

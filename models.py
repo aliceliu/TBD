@@ -3,7 +3,7 @@ from google.appengine.ext import db
 class Recommendation(db.Model):
     from_user_name = db.StringProperty(required=True)
     to_user_name = db.StringProperty(required=True)
-    total_cost = db.FloatProperty()
+    business_name = db.StringProperty()
 
 class User(db.Model):
     name = db.StringProperty(required=True)
