@@ -28,6 +28,8 @@ from google.appengine.api import urlfetch
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
+FRIENDS_LIST = ['Alice Liu', "Nicole Won", "Kevin Casey", "Gavin Chu"]
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template_values = {}
@@ -64,6 +66,7 @@ class GiveHandler(webapp2.RequestHandler):
           venue_names.append(venue['name'].encode('ascii','ignore'))
 
         template_values['venue_names'] = venue_names
+        template_values['friends'] = FRIENDS_LIST
         template = jinja_environment.get_template("give.html")
         self.response.out.write(template.render(template_values))
 

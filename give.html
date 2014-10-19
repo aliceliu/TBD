@@ -12,7 +12,7 @@
 			<button type="button" name="next" id="next"> Next </button> <br>
 		</div>
 		<div id="friend-page">
-			<input type="text" name="friends" placeholder="Find Friends"><br>
+			<input id="friends" type="text" name="friends" placeholder="Find Friends"><br>
 			<button type="submit"> Send </button>
 		</div>
 	</form>
@@ -23,6 +23,10 @@
 <script>
 	$("#business").autocomplete({
       source: {{venue_names}}
+    });
+
+	$("#friends").autocomplete({
+      source: {{friends}}
     });
 
 	$("#next").click(function() {
