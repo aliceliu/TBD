@@ -26,12 +26,14 @@
 		}
 
 		input[type="checkbox"] {
-			text-align: right;
+			float: right;
 		}
 
 		.expand {
 			width: 100%;
 			text-align: left;
+			padding: 3%;
+			border-bottom: 1px solid gray;
 		}
 
     </style>
@@ -71,32 +73,33 @@
 			
 		</div>
 		<div id="friend-page">
-			<button type="button" class="btn btn-default btn-sm search">
+			<div>
 			  <span class="glyphicon glyphicon-search"></span> 
-			  <input type="text" name="friends" placeholder="Search Friends" id="friends" ></button><br>
+			  <input type="text" name="friends" placeholder="Search Friends" id="friends" >
+			 </div>
 
-			<b>Groups</b><br>
-			<button type="button" class="btn btn-default btn-sm expand">
+			<h4>Groups</h4>
+			<div class="expand">
 			  <span class="glyphicon glyphicon-chevron-up"></span> 
 			  Foodies <input type="checkbox" name="foodies" value="Foodies"><br>
-			</button><br>
+			</div>
 			
-			<button type="button" class="btn btn-default btn-sm expand">
+			<div class="expand">
 			  <span class="glyphicon glyphicon-chevron-up"></span> 
 			  Cafe Study Buddies <input type="checkbox" name="foodies" value="Foodies"><br>
-			</button><br>
-			
-			<button type="button" class="btn btn-default btn-sm expand">
-			  <span class="glyphicon glyphicon-chevron-up"></span> 
-			  Poor College Kidzz <input type="checkbox" name="foodies" value="Foodies"><br>
-
-			<div class="toggle expand">
-				Nicole Won <input type="checkbox" name="foodies" value="Foodies"><br>
-				Kevin Casey <input type="checkbox" name="foodies" value="Foodies"><br>
 			</div>
-			</button><br>
+			
+			<div class="expand" id="3">
+				  <span class="glyphicon glyphicon-chevron-up"></span> 
+				  Poor College Kidzz <input type="checkbox" name="foodies" value="Foodies"><br>
 
-			<b>Friends</b><br>
+				<div class="toggle">
+					Nicole Won <input type="checkbox" name="foodies" value="Foodies"><br>
+					Kevin Casey <input type="checkbox" name="foodies" value="Foodies"><br>
+				</div>
+			</div>
+
+			<h4>Friends</h4>
 			Nicole Won <input type="checkbox" name="foodies" value="Foodies"><br>
 			Kevin Casey <input type="checkbox" name="foodies" value="Foodies"><br>
 
@@ -136,7 +139,7 @@
 
 	$(".toggle").hide();
 
-	$(".expand").click(function() {
+	$("#3").click(function() {
 		$(".toggle").toggle();
 	});
 
