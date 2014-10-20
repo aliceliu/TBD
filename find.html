@@ -48,14 +48,15 @@
     <div class="recommendation">
       <a href="/detail?id={{recommendation.key()}}">
         <div class="row">
-          <div class="col-xs-2">
-            <img src="{{recommendation.image_url}}" width="50px" height="50px">
+          <div class="col-xs-3">
+            <img src="{{recommendation.image_url}}" width="60px" height="60px">
           </div>
-
-          <b>{{recommendation.business_name}}</b>
-          {{recommendation.category}} <br>
-          "{{recommendation.comment}}" <br>
-          - {{recommendation.from_user_name}}
+          <div class="col-xs-8">
+            <b>{{recommendation.business_name}}</b>
+            {{recommendation.category}} <br>
+            "{{recommendation.comment}}" <br>
+            - {{recommendation.from_user_name}}
+          </div
         </div>
       </a>
 
