@@ -36,6 +36,20 @@
 			border-bottom: 1px solid gray;
 		}
 
+		#theImg {
+			height: 10%;
+		}
+
+		#picture {
+			height: 5%;
+			overflow: hidden;
+			text-align: center;
+		}
+
+		#categories {
+			text-align: center;
+		}
+
     </style>
 </head>
 <body>
@@ -49,13 +63,14 @@
 			  <input type="text" name="business" placeholder="Search Business" id="business" class="search">
 			  <span class="glyphicon glyphicon-map-marker">
 			</button><br>
+
 			<div id="categories"></div>
 			<div id="picture"></div>
 
 			<div id="custom_picture"><img id="custom_image" src="" style="width: 100px;"></div>
 					<div class="row">
 					  <div class="col-xs-3"><img src="https://lh6.ggpht.com/_ljlgBmVDW-mpu1AsLSAfLW0ErxNqFwpxowvsssjSqbEl2kXWUC0tX4Af5uQSiydVY4=w300" width="50px" height="50px"></div>
-					  <div class="col-xs-8">
+					  <div class="col-xs-9">
 					  	<b>Alice Liu</b><br>
 							Level: Magic Beans
 					  </div>
@@ -171,7 +186,7 @@
               data: "{'id':'" + ui.item.value + "'}", 
               success: function (data) {
               		if (data.image_url) {
-              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.rating_img_url + ' /><br>' + '<img id="theImg" src=' + data.image_url + ' />';
+              			$('#picture')[0].innerHTML = '<img id="theImg" src=' + data.image_url + ' />';
               			categories = [];
               			for(var index in data.categories) {
               				categories.push(data.categories[index][0]);
