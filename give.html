@@ -27,6 +27,7 @@
 
 		input[type="checkbox"] {
 			text-align: right;
+			float: right;
 		}
 
 		.expand {
@@ -40,13 +41,15 @@
 	<div class="header">
 		Give Recommendation
 	</div>
-	<form>
+	<form method="post">
 		<div id="comment-page">
 			<button type="button" class="btn btn-default btn-sm search">
 			  <span class="glyphicon glyphicon-search"></span> 
 			  <input type="text" name="business" placeholder="Search Business" id="business" class="search">
 			  <span class="glyphicon glyphicon-map-marker">
 			</button><br>
+			<input type="hidden" name="business_id" id="business_id">
+			<input type="hidden" name="categories_string" id="categories_input">
 			<div id="categories"></div>
 			<div id="picture"></div>
 
@@ -174,9 +177,11 @@
               				categories.push(data.categories[index][0]);
               			}
               			$('#categories')[0].innerHTML = categories.join(', ');
+              			$('#categories_input').val(categories.join(', '));
               		}
               }
           	});
+          $('#business_id').val(ui.item.value);
           ui.item.value = ui.item.label;
         }
     	}
@@ -188,6 +193,9 @@
 
 	var status = 0;
 	$(".next").click(function() {
+		if(status == 1) {
+			$('form').submit();
+		}
 		status = 1;
 		$("#friend-page").show()
 		$("#comment-page").hide()

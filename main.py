@@ -113,6 +113,21 @@ class GiveHandler(webapp2.RequestHandler):
         template_values['friends'] = friends
         template = jinja_environment.get_template("give.html")
         self.response.out.write(template.render(template_values))
+    def post(self):
+        print self.request.get('business')
+        print self.request.get_all('friends')
+        print self.request.get('comment')
+
+        business_id = self.request.get('business_id')
+        business_path = BUSINESS_PATH + business_id
+
+        yelp_result = make_yelp_request(API_HOST, business_path)
+
+        yelp_url = 'http://www.yelp.com/biz/' + business_id
+
+        Recommendation(from_user_name=CURRENT_USER, to_user_name=CURRENT_USER, business_name=self.request.get('business'), status="unread", category=self.request.get('categories_string'), comment=self.request.get('comment'), yelp_url=yelp_url, image_url=yelp_result['image_url']).put()
+
+        self.redirect('/')
 
 class FindHandler(webapp2.RequestHandler):
     def get(self):
