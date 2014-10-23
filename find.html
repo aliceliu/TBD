@@ -43,6 +43,21 @@
         height: 30px;
       }
 
+      #bean_logo, #map_toggle_icon {
+        height: 30px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      #bean_logo_container, #map_toggle_container {
+        display: inline-block;
+        width: 47%;
+        border-right: 10px;
+        cursor: pointer;
+        cursor: hand;
+      }
+
     </style>
 </head>
 <body>
@@ -53,30 +68,57 @@
     Recommended for you
   </div>
 
-  <button type="button" class="btn btn-default btn-sm search">
-        <span class="glyphicon glyphicon-search"></span> 
-        <input type="text" name="recomendations" placeholder="Search Recommendations" id="recommendations" class="search">
-      </button><br>
+  <div id="list_view">
+    <button type="button" class="btn btn-default btn-sm search">
+          <span class="glyphicon glyphicon-search"></span> 
+          <input type="text" name="recomendations" placeholder="Search Recommendations" id="recommendations" class="search">
+        </button><br>
 
-  {% for recommendation in recommendations %}
-    <div class="recommendation">
-      <a href="/detail?id={{recommendation.key()}}">
-        <div class="row">
-          <div class="col-xs-3">
-            <img src="{{recommendation.image_url}}" width="60px" height="60px">
+    {% for recommendation in recommendations %}
+      <div class="recommendation">
+        <a href="/detail?id={{recommendation.key()}}">
+          <div class="row">
+            <div class="col-xs-3">
+              <img src="{{recommendation.image_url}}" width="60px" height="60px">
+            </div>
+            <div class="col-xs-9">
+              <b>{{recommendation.business_name}}</b><span style="float: right" style="height: 30px;"><img src="/static/heartoutline.png" id="heartoutline"><img src="/static/shareicon.png" id="shareicon"></span><br>
+              {{recommendation.category}} <br>
+              "{{recommendation.comment}}" <br>
+              - {{recommendation.from_user_name}}
+            </div>
           </div>
-          <div class="col-xs-9">
-            <b>{{recommendation.business_name}}</b><span style="float: right" style="height: 30px;"><img src="/static/heartoutline.png" id="heartoutline"><img src="/static/shareicon.png" id="shareicon"></span><br>
-            {{recommendation.category}} <br>
-            "{{recommendation.comment}}" <br>
-            - {{recommendation.from_user_name}}
-          </div
-        </div>
-      </a>
+        </a>
 
-    </div>
-  {% endfor %}
-  <div class="footer"> 
+      </div>
+    {% endfor %}
+  </div>
+
+  <div id="map_view">
+    <img src="static/bean.png">
+  </div>
+
+  <div class="footer">
+    <span id="bean_logo_container">
+      <img src="/static/smallbeanman.png" id="bean_logo">
+    </span>
+    <span id="map_toggle_container">
+      <img src="/static/smallbeanman.png" id="map_toggle_icon">
+    </span>
   </div>
 </body>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<script type="text/javascript">
+  $('#map_view').hide();
+  $('#bean_logo_container').click(function() {
+    $('#list_view').show();
+    $('#map_view').hide();
+  });
+  $('#map_toggle_container').click(function() {
+    $('#list_view').hide();
+    $('#map_view').show();
+  });
+</script>
 </html>
