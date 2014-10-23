@@ -2,14 +2,88 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cool Beans</title>
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="/static/base.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <style>
+      html {
+          padding: 0px;
+      }
+
+      body {
+        padding: 0px;
+        margin: 0px;
+        margin-top: 17%;
+      }
+
+      a {
+        color: black;
+        margin-top: 5%;
+      }
+
+      a:hover {
+        text-decoration: none;
+        color: coral;
+      }
+
+      #detail_image {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+      }
+
+      #business_title {
+        font-size: 1.5em;
+        padding-left: 10px;
+      }
+
+      #category {
+        padding-left: 5px;
+        font-size: 0.8em;
+      }
+
+      #comment {
+        padding-left: 20px;
+      }
+
+      #from_user {
+        padding-left: 30px;
+        font-size: 0.9em;
+      }
+
+      #heartoutline {
+        padding-right: 10px;
+        padding-top: 4px;
+        height: 30px;
+      }
+
+      #shareicon {
+        padding-right: 50px;
+        height: 30px;
+      }
+
+    </style>
 </head>
 <body>
-  <a href="/find">Back</a>
-  <img src="{{recommendation.image_url}}">
-  {{recommendation.business_name}} - {{recommendation.category}}
+  <div class="header">
+    {{recommendation.business_name}}
+  </div>
+  <div id="container">
+    <img id="detail_image" src="{{recommendation.image_url}}">
+  </div>
 
-  <a href="{{recommendation.yelp_url}}" target="_blank">Yelp</a>
+  <span id="business_title"><b>{{recommendation.business_name}}</b></span>
+  <span id="category">{{recommendation.category}}</span>
+  <br>
+  <p id="comment">{{recommendation.comment}}</p>
+  <p id="from_user">- {{recommendation.from_user_name}} <span style="float: right" style="height: 30px;"><img src="/static/heartoutline.png" id="heartoutline"><img src="/static/shareicon.png" id="shareicon"></span></p>
+  <div class="footer"> 
+    <button type="button" name="back" class="back" onClick="history.go(-1);return true;">
+      <span class="glyphicon glyphicon-chevron-left"></span> 
+    </button>
+  </div>
 </body>
 </html>
