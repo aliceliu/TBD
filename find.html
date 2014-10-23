@@ -82,6 +82,18 @@
         height: 30px;
       }
 
+      #list_view_button {
+        position: absolute;
+        left: 323px;
+        top: 75px;
+        cursor: pointer;
+        cursor: hand;
+      }
+
+      #list_view_icon {
+        height: 30px;
+      }
+
     </style>
 </head>
 <body>
@@ -129,6 +141,10 @@
     {% endfor %}
   </div>
 
+  <span id="list_view_button">
+    <img id="list_view_icon" src="static/list_icon.png">
+  </span>
+
   <div id="map_view">
     <div id="map_container">
       <img id="map_image" src="/static/map.png">
@@ -149,15 +165,20 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script type="text/javascript">
   $('#map_view').hide();
-  $('#list_toggle').click(function() {
+  $('#list_view_button').hide();
+
+  $('#list_view_button').click(function() {
     $('#list_view').show();
     $('#map_view').hide();
     $('.search_bar_container').show();
+    $('#list_view_button').hide();
   });
+
   $('#compass_container').click(function() {
     $('#list_view').hide();
     $('#map_view').show();
     $('.search_bar_container').hide();
+    $('#list_view_button').show();
   });
 </script>
 </html>
