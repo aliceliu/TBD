@@ -55,6 +55,9 @@
 </head>
 <body>
 	<div class="header">
+    <button type="button" name="back" class="back">
+      <span class="glyphicon glyphicon-chevron-left"></span> 
+    </button>
 		Give Recommendation
 	</div>
 	<form method="post">
@@ -124,11 +127,8 @@
 		</div>
 	</form>
 	<div class="footer"> 
-		<button type="button" name="back" class="back">
-			<span class="glyphicon glyphicon-chevron-left"></span> 
-		</button>
 		<button type="button" name="next" class="next">
-			<span class="glyphicon glyphicon-chevron-right"></span> 
+			Next
 		</button> <br>
 	</div>
 </body>
@@ -215,8 +215,9 @@
 			$('form').submit();
 		}
 		status = 1;
-		$("#friend-page").show()
-		$("#comment-page").hide()
+    $(".next")[0].innerHTML = "Send";
+		$("#friend-page").show();
+		$("#comment-page").hide();
 	})
 
 	$(".back").click(function() {
@@ -225,6 +226,7 @@
 			return true;
 		}
 		status = 0;
+    $(".next")[0].innerHTML = "Next";
 		$("#friend-page").hide()
 		$("#comment-page").show()
 	});

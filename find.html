@@ -47,6 +47,9 @@
 </head>
 <body>
   <div class="header">
+    <button type="button" name="back" class="back" onClick="history.go(-1);return true;">
+      <span class="glyphicon glyphicon-chevron-left"></span> 
+    </button>
     Recommended for you
   </div>
 
@@ -74,9 +77,6 @@
     </div>
   {% endfor %}
   <div class="footer"> 
-    <button type="button" name="back" class="back" onClick="history.go(-1);return true;">
-      <span class="glyphicon glyphicon-chevron-left"></span> 
-    </button>
   </div>
 </body>
 </html>

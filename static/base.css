@@ -36,6 +36,10 @@ a {
 	text-align: center;
 }
 
+.header .back {
+	float: left;
+}
+
 .header {
 	position: fixed;
 	top: 0px;
@@ -49,4 +53,8 @@ a {
 .footer {
 	position: fixed;
 	bottom: 0px;
+}
+
+.footer .next {
+	float: right;
 }
