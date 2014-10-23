@@ -61,7 +61,9 @@
 	</style>
 </head>
 <body>
-	<div class="flash">{{message}}</div>
+	{% if message %}
+		<div class="flash">{{message}}</div>
+	{% endif %}
 	<img src="/static/bean.png" id="bean" width="60px">
 	<h1> COOLBEANS </h1>
 	<div class="tagline"> Helping users and small businesses leverage word of month. </div>
