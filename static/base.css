@@ -10,7 +10,8 @@ a {
 
 .search {
 	border: 0px;
-	width: 100%;
+	width: 80%;
+	margin-left: 5%;
 }
 
 .glyphicon-map-marker {
