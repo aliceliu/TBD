@@ -5,19 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Cool Beans</title>
     <link href='http://fonts.googleapis.com/css?family=Oswald:400,700|Open+Sans' rel='stylesheet' type='text/css'>
-    <link href="/static/base.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link href="/static/base.css" rel="stylesheet" type="text/css">
     <style>
-      html {
-          padding: 0px;
-      }
-
-      body {
-        padding: 0px;
-        margin: 0px;
-        margin-top: 17%;
-      }
-
       a {
         color: black;
         margin-top: 5%;
@@ -29,18 +19,7 @@
       }
 
       .recommendation {
-        margin-top: 2%;
-      }
-
-      #heartoutline {
-        padding-right: 10px;
-        padding-top: 4px;
-        height: 30px;
-      }
-
-      #shareicon {
-        padding-right: 5px;
-        height: 30px;
+        margin-top: 5px;
       }
 
       #bean_logo, #global_toggle_icon {
@@ -66,6 +45,43 @@
         width: 100%;
       }
 
+      #compass {
+        width: 20px;
+      }
+
+      #compass_container {
+        background-color: coral;
+        border: none;
+        width: 13%;
+        padding: 5px;
+      }
+
+      .img_container {
+        float: left;
+        display: inline-block;
+        margin-right: 10px;
+      }
+
+      .comment {
+        width: 80%;
+        display: inline-block;
+      }
+
+      .actions {
+        position: fixed;
+        right: 5px;
+      }
+
+      #heartoutline {
+        padding-right: 5px;
+        padding-top: 4px;
+        height: 30px;
+      }
+
+      #shareicon {
+        height: 30px;
+      }
+
     </style>
 </head>
 <body>
@@ -76,35 +92,36 @@
     Recommended for you
   </div>
 
-  <div id="search_bar_container">
-    <span id="search_container" style="width: 80%;">
-      <button type="button" class="btn btn-default btn-sm search" style="width: 80%;">
+  <div class="search_bar_container">
+    <span class="search_container">
+      <button type="button" class="btn btn-default btn-sm searchbox">
         <span class="glyphicon glyphicon-search"></span> 
         <input type="text" name="recomendations" placeholder="Search Recommendations" id="recommendations" class="search">
       </button>
     </span>
-    <span id="list_view_button">
-      hi
-    </span>
-    <span id="map_view_button">
-      hi
-    </span>
+    <button id="compass_container">
+      <img src="/static/globalcompass.png" id="compass">
+    </button>
   </div>
 
   <div id="list_view">
     {% for recommendation in recommendations %}
       <div class="recommendation">
         <a href="/detail?id={{recommendation.key()}}">
-          <div class="row">
-            <div class="col-xs-3">
-              <img src="{{recommendation.image_url}}" width="60px" height="60px">
-            </div>
-            <div class="col-xs-9">
-              <b>{{recommendation.business_name}}</b><span style="float: right" style="height: 30px;"><img src="/static/heartoutline.png" id="heartoutline"><img src="/static/shareicon.png" id="shareicon"></span><br>
-              {{recommendation.category}} <br>
-              "{{recommendation.comment}}" <br>
-              - {{recommendation.from_user_name}}
-            </div>
+          <div>
+              <div class="img_container">
+                <img src="{{recommendation.image_url}}" width="60px" height="60px">
+              </div>
+              <div class="comment">
+                <b>{{recommendation.business_name}}</b>
+                <span class="actions">
+                  <img src="/static/heartoutline.png" id="heartoutline">
+                  <img src="/static/shareicon.png" id="shareicon">
+                </span><br>
+                {{recommendation.category}} <br>
+                "{{recommendation.comment}}" <br>
+                - {{recommendation.from_user_name}}
+              </div>
           </div>
         </a>
 
@@ -114,7 +131,7 @@
 
   <div id="map_view">
     <div id="map_container">
-      <img id="map_image" src="static/map.png">
+      <img id="map_image" src="/static/map.png">
     </div>
   </div>
 
@@ -132,13 +149,15 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script type="text/javascript">
   $('#map_view').hide();
-  $('#map_toggle').click(function() {
+  $('#list_toggle').click(function() {
     $('#list_view').show();
     $('#map_view').hide();
+    $('#search_bar_container').show();
   });
-  $('#list_toggle').click(function() {
+  $('#compass_container').click(function() {
     $('#list_view').hide();
     $('#map_view').show();
+    $('#search_bar_container').hide();
   });
 </script>
 </html>

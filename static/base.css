@@ -1,7 +1,12 @@
 html {
 	height: 100%;
-	padding: 5%;
+	padding: 0px;
 	font-family: 'Oswald', sans-serif;
+}
+
+body {
+	padding: 0px;
+	margin: 0px;
 }
 
 a {
@@ -10,45 +15,32 @@ a {
 
 .search {
 	border: 0px;
-	width: 80%;
-	margin-left: 5%;
-}
-
-.glyphicon-map-marker {
-	position: relative;
-	right: 30px;
+	margin-left: 10px;
 }
 
 .image-upload {
 	text-align: center;
 }
 
-.next, .back {
+.back, .next {
 	background-color: transparent;
 	border: none;
-	position: relative;
+}
+
+.back {
+	float: left;
+}
+
+.next {
+	float: right;
 }
 
 .header, .footer {
 	background-color: coral;
 	width: 100%;
-	padding: 5%;
+	padding: 20px;
 	color: white;
 	text-align: center;
-}
-
-.header .back {
-	float: left;
-}
-
-.header {
-	position: fixed;
-	top: 0px;
-}
-
-.footer button {
-	padding-right: 10%;
-	padding-left: 10%;
 }
 
 .footer {
@@ -56,6 +48,12 @@ a {
 	bottom: 0px;
 }
 
-.footer .next {
-	float: right;
+.searchbox {
+	width: 85%;
+	text-align: left;
+}
+
+.search_bar_container {
+	padding: 10px;
+	padding-bottom: 3px;
 }
