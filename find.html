@@ -43,14 +43,14 @@
         height: 30px;
       }
 
-      #bean_logo, #map_toggle_icon {
+      #bean_logo, #global_toggle_icon {
         height: 30px;
         display: block;
         margin-left: auto;
         margin-right: auto;
       }
 
-      #bean_logo_container, #map_toggle_container {
+      #bean_logo_container, #global_toggle_container {
         display: inline-block;
         width: 47%;
         border-right: 10px;
@@ -76,12 +76,22 @@
     Recommended for you
   </div>
 
-  <div id="list_view">
-    <button type="button" class="btn btn-default btn-sm search">
-          <span class="glyphicon glyphicon-search"></span> 
-          <input type="text" name="recomendations" placeholder="Search Recommendations" id="recommendations" class="search">
-        </button><br>
+  <div id="search_bar_container">
+    <span id="search_container" style="width: 80%;">
+      <button type="button" class="btn btn-default btn-sm search" style="width: 80%;">
+        <span class="glyphicon glyphicon-search"></span> 
+        <input type="text" name="recomendations" placeholder="Search Recommendations" id="recommendations" class="search">
+      </button>
+    </span>
+    <span id="list_view_button">
+      hi
+    </span>
+    <span id="map_view_button">
+      hi
+    </span>
+  </div>
 
+  <div id="list_view">
     {% for recommendation in recommendations %}
       <div class="recommendation">
         <a href="/detail?id={{recommendation.key()}}">
@@ -112,8 +122,8 @@
     <span id="bean_logo_container">
       <img src="/static/smallbeanman.png" id="bean_logo">
     </span>
-    <span id="map_toggle_container">
-      <img src="/static/smallbeanman.png" id="map_toggle_icon">
+    <span id="global_toggle_container">
+      <img src="/static/global.png" id="global_toggle_icon">
     </span>
   </div>
 </body>
@@ -122,11 +132,11 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
 <script type="text/javascript">
   $('#map_view').hide();
-  $('#bean_logo_container').click(function() {
+  $('#map_toggle').click(function() {
     $('#list_view').show();
     $('#map_view').hide();
   });
-  $('#map_toggle_container').click(function() {
+  $('#list_toggle').click(function() {
     $('#list_view').hide();
     $('#map_view').show();
   });
