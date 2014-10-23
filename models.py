@@ -18,3 +18,6 @@ class User(db.Model):
 class Friendship(db.Model):
     from_user_name = db.StringProperty(required=True)
     to_user_name = db.StringProperty(required=True)
+
+class Invitee(db.Model):
+    email = db.StringProperty(required=True)

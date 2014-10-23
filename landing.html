@@ -48,15 +48,19 @@
 		#heroshot {
 			width: 50%;
 		}
+		.flash {
+			background: green;
+		}
 	</style>
 </head>
 <body>
+	<div class="flash">{{message}}</div>
 	<img src="/static/bean.png" id="bean" width="60px">
 	<h1> COOLBEANS </h1>
 	<div class="tagline"> Helping users and small businesses leverage word of month. </div>
 	<img src="/static/heroshot.png" id="heroshot">
-	<form>
-		<input type="email" class="form-control" name="email" placeholder="mrbean@coolbeans.com"> <br>
+	<form method="post">
+		<input type="email" class="form-control" name="email" placeholder="mrbean@coolbeans.com" required> <br>
 		<button type="submit">SIGN UP FOR BETA</button> <br>
 		</div>
 	</form>
