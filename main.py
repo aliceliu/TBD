@@ -106,7 +106,7 @@ class LandingPageHandler(webapp2.RequestHandler):
     def post(self):
         email = self.request.get('email')
         Invitee(email=email).put()
-        self.redirect('/?message=Yay we got your email of ' + email)
+        self.redirect('/?message=Yay we got your email of ' + email + '!')
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
