@@ -99,14 +99,16 @@ def make_yelp_request(host, path, url_params=None):
 class LandingPageHandler(webapp2.RequestHandler):
     def get(self):
         template_values = {}
-        template_values['message'] = self.request.get('message')
         template = jinja_environment.get_template("landing.html")
         self.response.out.write(template.render(template_values))
 
     def post(self):
+        template_values = {}
         email = self.request.get('email')
         Invitee(email=email).put()
-        self.redirect('/?message=Yay we got your email of ' + email + '!')
+        template_values['message'] = email
+        template = jinja_environment.get_template("landing.html")
+        self.response.out.write(template.render(template_values))
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
