@@ -106,7 +106,7 @@ class LandingPageHandler(webapp2.RequestHandler):
         template_values = {}
         email = self.request.get('email')
         Invitee(email=email).put()
-        template_values['message'] = email
+        template_values['message'] = "Thanks for signing up! We will let you know once we release the Beta version"
         template = jinja_environment.get_template("landing.html")
         self.response.out.write(template.render(template_values))
 
