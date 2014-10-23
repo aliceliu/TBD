@@ -32,6 +32,17 @@
         margin-top: 2%;
       }
 
+      #heartoutline {
+        padding-right: 10px;
+        padding-top: 4px;
+        height: 30px;
+      }
+
+      #shareicon {
+        padding-right: 5px;
+        height: 30px;
+      }
+
     </style>
 </head>
 <body>
@@ -52,7 +63,7 @@
             <img src="{{recommendation.image_url}}" width="60px" height="60px">
           </div>
           <div class="col-xs-9">
-            <b>{{recommendation.business_name}}</b>
+            <b>{{recommendation.business_name}}</b><span style="float: right" style="height: 30px;"><img src="/static/heartoutline.png" id="heartoutline"><img src="/static/shareicon.png" id="shareicon"></span><br>
             {{recommendation.category}} <br>
             "{{recommendation.comment}}" <br>
             - {{recommendation.from_user_name}}
