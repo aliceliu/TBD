@@ -58,6 +58,14 @@
         cursor: hand;
       }
 
+      #map_container {
+        width: 400px;
+      }
+
+      #map_image {
+        width: 100%;
+      }
+
     </style>
 </head>
 <body>
@@ -95,7 +103,9 @@
   </div>
 
   <div id="map_view">
-    <img src="static/bean.png">
+    <div id="map_container">
+      <img id="map_image" src="static/map.png">
+    </div>
   </div>
 
   <div class="footer">
