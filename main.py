@@ -96,6 +96,12 @@ def make_yelp_request(host, path, url_params=None):
 
     return response
 
+class LandingPageHandler(webapp2.RequestHandler):
+    def get(self):
+        template_values = {}
+        template = jinja_environment.get_template("landing.html")
+        self.response.out.write(template.render(template_values))
+
 class MainHandler(webapp2.RequestHandler):
     def get(self):
         template_values = {}
@@ -127,7 +133,7 @@ class GiveHandler(webapp2.RequestHandler):
 
         Recommendation(from_user_name=CURRENT_USER, to_user_name=CURRENT_USER, business_name=self.request.get('business'), status="unread", category=self.request.get('categories_string'), comment=self.request.get('comment'), yelp_url=yelp_url, image_url=yelp_result['image_url']).put()
 
-        self.redirect('/')
+        self.redirect('/mobile')
 
 class FindHandler(webapp2.RequestHandler):
     def get(self):
@@ -204,7 +210,8 @@ class ResetAndSeedHandler(webapp2.RequestHandler):
         self.response.out.write('success')
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler),
+    ('/', LandingPageHandler),
+    ('/mobile', MainHandler),
     ('/give', GiveHandler),
     ('/find', FindHandler),
     ('/detail', DetailHandler),
