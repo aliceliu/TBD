@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
     <style>
       html {
-          padding: 0px;
+        padding: 0px;
       }
 
       body {
         padding: 0px;
         margin: 0px;
-        margin-top: 17%;
+        margin-top: 15%;
       }
 
       a {
@@ -32,7 +32,8 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
-        width: 80%;
+        width: 100%;
+        height: 300px;
       }
 
       #business_title {
@@ -46,7 +47,8 @@
       }
 
       #comment {
-        padding-left: 20px;
+        padding-left: 10px;
+        font-size: 1.2em;
       }
 
       #from_user {
@@ -61,29 +63,40 @@
       }
 
       #shareicon {
-        padding-right: 50px;
         height: 30px;
+        padding-right: 10px;
+      }
+
+      .recommendation {
+        padding: 5%;
+      }
+
+      button {
+        float: left;
       }
 
     </style>
 </head>
 <body>
   <div class="header">
+    <button type="button" name="back" class="back" onClick="history.go(-1);return true;">
+      <span class="glyphicon glyphicon-chevron-left"></span> 
+    </button>
     {{recommendation.business_name}}
   </div>
   <div id="container">
     <img id="detail_image" src="{{recommendation.image_url}}">
   </div>
 
-  <span id="business_title"><b>{{recommendation.business_name}}</b></span>
-  <span id="category">{{recommendation.category}}</span>
-  <br>
-  <p id="comment">{{recommendation.comment}}</p>
-  <p id="from_user">- {{recommendation.from_user_name}} <span style="float: right" style="height: 30px;"><img src="/static/heartoutline.png" id="heartoutline"><img src="/static/shareicon.png" id="shareicon"></span></p>
+  <div class="recommendation">
+    <span id="business_title"><b>{{recommendation.business_name}}</b></span>
+    <span id="category">{{recommendation.category}}</span>
+    <br>
+    <p id="comment">"{{recommendation.comment}}"</p>
+    <p id="from_user">- {{recommendation.from_user_name}} <span style="float: right" style="height: 30px;"><img src="/static/heartoutline.png" id="heartoutline"><img src="/static/shareicon.png" id="shareicon"></span></p>
+  </div>
   <div class="footer"> 
-    <button type="button" name="back" class="back" onClick="history.go(-1);return true;">
-      <span class="glyphicon glyphicon-chevron-left"></span> 
-    </button>
+    Comment
   </div>
 </body>
 </html>

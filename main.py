@@ -204,7 +204,7 @@ class ResetAndSeedHandler(webapp2.RequestHandler):
         Friendship(from_user_name='Alice Liu', to_user_name='Nicole Won').put()
         Friendship(from_user_name='Alice Liu', to_user_name='Gavin Chu').put()
 
-        Recommendation(from_user_name='Kevin Casey', to_user_name='Alice Liu', business_name="McDonald's", status="unread", yelp_url="http://www.yelp.com/biz/mcdonalds-berkeley", category="Burgers, Fast Food", image_url='http://s3-media2.fl.yelpcdn.com/bphoto/cF9hqfc0ZPRw1rk52jsnQQ/l.jpg', comment="this place seems legit").put()
+        Recommendation(from_user_name='Kevin Casey', to_user_name='Alice Liu', business_name="Lucky House Thai", status="unread", yelp_url="http://www.yelp.com/biz/lucky-house-thai-berkeley", category="Thai", image_url='http://s3-media1.fl.yelpcdn.com/bphoto/w-9FrR3QLeeclQk8k2u2ug/l.jpg', comment="this place seems legit").put()
         Recommendation(from_user_name='Gavin Chu', to_user_name='Alice Liu', business_name="Gather", status="read", yelp_url='http://www.yelp.com/biz/gather-berkeley', category="American (New), Breakfast & Brunch", image_url="http://www.opentable.com/img/restimages/36430.jpg", comment="This food was great, you should go here with Kevin").put()
 
         self.response.out.write('success')
