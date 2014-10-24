@@ -225,5 +225,4 @@ app = webapp2.WSGIApplication([
     ('/detail', DetailHandler),
     ('/autocomplete_yelp', AutocompleteYelpHandler),
     ('/autocomplete_yelp_picture', AutocompleteYelpPictureHandler),
-    ('/reset', ResetAndSeedHandler),
 ], debug=True)
