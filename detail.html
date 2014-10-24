@@ -59,11 +59,15 @@
         padding-right: 10px;
         padding-top: 4px;
         height: 30px;
+        cursor: pointer;
+        cursor: hand;
       }
 
       #shareicon {
         height: 30px;
         padding-right: 10px;
+        cursor: pointer;
+        cursor: hand;
       }
 
       .recommendation {
@@ -90,7 +94,7 @@
     <p id="comment">"{{recommendation.comment}}"</p>
     <p id="from_user">- {{recommendation.from_user_name}} <span style="float: right" style="height: 30px;"><img src="/static/heartoutline.png" id="heartoutline"><img src="/static/shareicon.png" id="shareicon"></span></p>
   </div>
-  <div class="footer"> 
+  <div class="footer" style="cursor: pointer; cursor: hand;"> 
     Comment
   </div>
 </body>
